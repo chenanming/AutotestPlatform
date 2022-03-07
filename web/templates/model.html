@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-1"></div>
-	<div class="col-md-10"><h3>用例模板</h3></div>
+	<div class="col-md-10"><h3>用例管理</h3></div>
 </div>
 <div class="row">
   <div class="col-md-1"></div>
@@ -12,14 +12,14 @@
     <div class="row" style="height:20px;"></div>
     <form class="form-inline">
       <div class="form-group">
-        <label>模板名称:</label>
+        <label>用例名称:</label>
         <input type="text" class="form-control" placeholder="模板不能重名" id="model_name">
       </div>
           <button class="btn btn-primary" id="new_model">新 增</button>
       <div class="form-group" style="margin:0px 50px">
-        <label>模板查看:</label>
+        <label>用例查看:</label>
         <select class="form-control" name="select_set" id="model">
-            <option value="none">请选择模板</option>
+            <option value="none">请选择用例</option>
             {% for model in models %}
             <option value={{model}} class="dam">{{model}}</option>
             {% endfor %}

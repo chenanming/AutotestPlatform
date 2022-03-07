@@ -1,4 +1,5 @@
 # coding:utf-8
+# @File: interface.py
 '''
 接口类：实现接口参数化操作
 支持：
@@ -208,8 +209,7 @@ class Interface:
         except:
             print(traceback.format_exc())
             self.log('error','G_push failed! '+ str(key_list) + '  ' + str(self.g))
-          
-        
+
     # 全局参数替换
     def g_replace(self, k_v):
         try:

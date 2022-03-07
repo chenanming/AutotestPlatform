@@ -1,4 +1,5 @@
 # coding:utf-8
+# @File: run.py
 from gevent import monkey; monkey.patch_all()
 import sys
 import os
@@ -20,15 +21,15 @@ from threading import Lock, Thread
 import requests
 from requests.auth import HTTPBasicAuth
 from requests.auth import HTTPDigestAuth
-from interface import *
-from task import *
+from run.lib.interface import *
+from run.lib.task import *
 
 
 # 配置
 DATABASE = 'web.db'
 SECRET_KEY = 'zhouqiang'
-USERNAME = 'admin'
-PASSWORD = '123'
+USERNAME = 'test'
+PASSWORD = 'youshutest123'
 # 推送线程和锁和队列
 thread = None
 thread_lock = Lock()
@@ -211,7 +212,6 @@ def push():
         if len(push_list) == 0:
             thread = None
             return
-
 
 
 @app.before_request
@@ -419,7 +419,7 @@ def task_operate():
         g.db.commit()
         #proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         s = socket.socket()
-        s.connect(('127.0.0.1',1111))
+        s.connect(('127.0.0.1', 1111))
         s.send(('task_name:%s' % task_name).encode('utf-8'))
         handle[task_name] = s
         print(handle[task_name])
@@ -466,7 +466,7 @@ def task_operate():
     return redirect(url_for('show_tasks'))
 
 
-# 页面抽象编写
+# 页面管理
 @app.route('/page_ab', methods=['POST', 'GET'])
 def page_ab():
     if not session.get('logged_in'):
@@ -482,7 +482,7 @@ def page_ab():
         return render_template('page_ab.html', pages=pages)
 
 
-# 页面抽象修改新增后下发
+# 页面管理修改新增后下发
 @app.route('/modify_page', methods=['POST'])
 def modify_page():
     if not session.get('logged_in'):
@@ -500,7 +500,7 @@ def modify_model():
     return jsonify(code=200)
 
 
-# 新增抽象页面
+# 新增页面
 @app.route('/xml_add', methods=['POST'])
 def xml_add():
     if not session.get('logged_in'):
@@ -520,7 +520,7 @@ def xml_add():
     return jsonify(code=code, msg=msg)
 
 
-# 模板编写
+# 用例编写
 @app.route('/model', methods=['POST', 'GET'])
 def model():
     if not session.get('logged_in'):
@@ -569,6 +569,7 @@ def bug_img():
         image = f.readlines()
     resp = Response(image, mimetype="image/png")
     return resp
+
 
 @app.route('/api_record')
 def api_record():
